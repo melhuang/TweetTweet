@@ -63,4 +63,8 @@ public class TimelineActivity extends AppCompatActivity {
             }
         }, fetchMoreStart);
     }
+
+    public void presentCompose() {
+
+    }
 }

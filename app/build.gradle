@@ -8,6 +8,7 @@ android {
         applicationId "com.codepath.apps.restclienttemplate"
         minSdkVersion 16
         targetSdkVersion 24
+        vectorDrawables.useSupportLibrary = true
     }
 
     buildTypes {
@@ -37,4 +38,10 @@ dependencies {
     compile 'com.michaelpardo:activeandroid:3.1.0-SNAPSHOT'
     compile 'com.android.support:support-v4:24.1.1'
     compile 'com.android.support:recyclerview-v7:24.1.1'
+
+    compile "com.android.support:design:24.1.1"
+    compile "com.android.support:percent:24.1.1"
+
+    compile "com.android.support:support-vector-drawable:24.1.1" // VectorDrawableCompat
+    compile "com.android.support:animated-vector-drawable:24.1.1" // AnimatedVectorDrawableCompat
 }
