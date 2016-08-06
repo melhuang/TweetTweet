@@ -5,4 +5,9 @@
     <string name="login_label">Log in with Twitter</string>
     <string name="title_activity_timeline">Home Timeline</string>
 
+    <string name="compose">Compose</string>
+    <string name="save">Post</string>
+    <string name="cancel">Cancel</string>
+
+
 </resources>
