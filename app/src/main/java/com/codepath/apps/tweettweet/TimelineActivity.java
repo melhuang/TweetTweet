@@ -2,8 +2,9 @@ package com.codepath.apps.tweettweet;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.widget.ListView;
 
 import com.codepath.apps.tweettweet.models.Tweet;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -18,37 +19,48 @@ import cz.msebera.android.httpclient.Header;
 public class TimelineActivity extends AppCompatActivity {
 
     private TwitterClient client;
-    private TweetsArrayAdapter aTweets;
+    private TweetsAdapter aTweets;
     private ArrayList<Tweet> tweets;
-    private ListView lvTweets;
+    private RecyclerView rvTweets;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeline);
-        lvTweets = (ListView) findViewById(R.id.lvTweets);
+        rvTweets = (RecyclerView) findViewById(R.id.rvTweets);
         tweets = new ArrayList<>();
-        aTweets = new TweetsArrayAdapter(this, tweets);
-        lvTweets.setAdapter(aTweets);
+        aTweets = new TweetsAdapter(this, tweets);
+        rvTweets.setAdapter(aTweets);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        rvTweets.setLayoutManager(linearLayoutManager);
+        rvTweets.setHasFixedSize(true);
+        rvTweets.addOnScrollListener(new EndlessRecyclerViewScrollListener(linearLayoutManager) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount) {
+                populateTimeline();
+            }
+        });
         client = TwitterApplication.getRestClient();
         populateTimeline();
     }
 
     private void populateTimeline() {
+        long fetchMoreStart = tweets.size() > 0 ? tweets.get(tweets.size() - 1).getUid() : -1;
         client.getHomeTimeline(new JsonHttpResponseHandler() {
             // on success
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONArray json) {
-                aTweets.addAll(Tweet.fromJSONArray(json));
+                int start = aTweets.getItemCount();
+                tweets.addAll(Tweet.fromJSONArray(json));
+                aTweets.notifyItemRangeInserted(start, aTweets.getItemCount() - 1);
             }
-
 
             // on failure
             @Override
             public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
                 Log.d("DEBUG", errorResponse.toString());
             }
-        });
+        }, fetchMoreStart);
     }
 }
