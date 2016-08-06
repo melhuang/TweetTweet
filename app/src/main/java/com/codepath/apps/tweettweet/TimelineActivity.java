@@ -6,9 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
+import android.view.View;
 
 import com.codepath.apps.tweettweet.models.Tweet;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -48,12 +46,14 @@ public class TimelineActivity extends AppCompatActivity implements ComposeDialog
         populateTimeline();
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_timeline, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
+/* Menu replaced by FAB */
+
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        MenuInflater inflater = getMenuInflater();
+//        inflater.inflate(R.menu.menu_timeline, menu);
+//        return super.onCreateOptionsMenu(menu);
+//    }
 
     private void populateTimeline() {
         long fetchMoreStart = tweets.size() > 0 ? tweets.get(tweets.size() - 1).getUid() : -1;
@@ -75,7 +75,7 @@ public class TimelineActivity extends AppCompatActivity implements ComposeDialog
         }, fetchMoreStart);
     }
 
-    public void presentCompose(MenuItem menuItem) {
+    public void presentCompose(View v) {
         FragmentManager fm = getSupportFragmentManager();
         ComposeDialogFragment composeDialogFragment = ComposeDialogFragment.newInstance();
         composeDialogFragment.show(fm, "fragment_compose");
