@@ -44,4 +44,6 @@ dependencies {
 
     compile "com.android.support:support-vector-drawable:24.1.1" // VectorDrawableCompat
     compile "com.android.support:animated-vector-drawable:24.1.1" // AnimatedVectorDrawableCompat
+
+    compile 'com.astuetz:pagerslidingtabstrip:1.0.1'
 }

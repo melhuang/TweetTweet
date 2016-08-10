@@ -1,36 +1,25 @@
 package com.codepath.apps.tweettweet;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 
-import com.codepath.apps.tweettweet.fragments.TweetsListFragment;
-import com.codepath.apps.tweettweet.models.Tweet;
-import com.loopj.android.http.JsonHttpResponseHandler;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import cz.msebera.android.httpclient.Header;
+import com.codepath.apps.tweettweet.fragments.HomeTimelineFragment;
+import com.codepath.apps.tweettweet.fragments.MentionsTimelineFragment;
 
 public class TimelineActivity extends AppCompatActivity implements ComposeDialogFragment.ComposeDialogFragmentListener {
-
-    private TwitterClient client;
-    private TweetsListFragment fragmentTweetsList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timeline);
 
-        client = TwitterApplication.getRestClient();
-        // if savedInstanceState != null, the fragment is already in memory
-        if (savedInstanceState == null) {
-            fragmentTweetsList = (TweetsListFragment) getSupportFragmentManager().findFragmentById(R.id.fragment_timeline);
-        }
-        populateTimeline();
+        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
+        viewPager.setAdapter(new TweetsPagerAdapter(getSupportFragmentManager()));
     }
 
 /* Menu replaced by FAB */
@@ -41,25 +30,6 @@ public class TimelineActivity extends AppCompatActivity implements ComposeDialog
 //        inflater.inflate(R.menu.menu_timeline, menu);
 //        return super.onCreateOptionsMenu(menu);
 //    }
-
-    private void populateTimeline() {
-        long fetchMoreStart = -1;
-//        long fetchMoreStart = tweets.size() > 0 ? tweets.get(tweets.size() - 1).getUid() : -1;
-        client.getHomeTimeline(new JsonHttpResponseHandler() {
-            // on success
-
-            @Override
-            public void onSuccess(int statusCode, Header[] headers, JSONArray json) {
-                fragmentTweetsList.addAll(Tweet.fromJSONArray(json));
-            }
-
-            // on failure
-            @Override
-            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-                Log.d("DEBUG", errorResponse.toString());
-            }
-        }, fetchMoreStart);
-    }
 
     public void presentCompose(View v) {
         FragmentManager fm = getSupportFragmentManager();
@@ -85,5 +55,36 @@ public class TimelineActivity extends AppCompatActivity implements ComposeDialog
 //                Log.d("DEBUG", errorResponse.toString());
 //            }
 //        }, body);
+    }
+
+    // configure fragments in view pager
+    public class TweetsPagerAdapter extends FragmentPagerAdapter {
+        private String tabTitles[] = { "Home", "Mentions" };
+
+        public TweetsPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            switch (position) {
+                case 0:
+                    return new HomeTimelineFragment();
+                case 1:
+                    return new MentionsTimelineFragment();
+            }
+
+            return null;
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return tabTitles[position];
+        }
+
+        @Override
+        public int getCount() {
+            return tabTitles.length;
+        }
     }
 }
