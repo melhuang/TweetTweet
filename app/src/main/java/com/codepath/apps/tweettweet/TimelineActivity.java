@@ -6,8 +6,12 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 
+import com.astuetz.PagerSlidingTabStrip;
 import com.codepath.apps.tweettweet.fragments.HomeTimelineFragment;
 import com.codepath.apps.tweettweet.fragments.MentionsTimelineFragment;
 
@@ -20,21 +24,26 @@ public class TimelineActivity extends AppCompatActivity implements ComposeDialog
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
         viewPager.setAdapter(new TweetsPagerAdapter(getSupportFragmentManager()));
+
+        PagerSlidingTabStrip tabStrip = (PagerSlidingTabStrip) findViewById(R.id.tabs);
+        tabStrip.setViewPager(viewPager);
     }
-
-/* Menu replaced by FAB */
-
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        MenuInflater inflater = getMenuInflater();
-//        inflater.inflate(R.menu.menu_timeline, menu);
-//        return super.onCreateOptionsMenu(menu);
-//    }
+    
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_timeline, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
 
     public void presentCompose(View v) {
         FragmentManager fm = getSupportFragmentManager();
         ComposeDialogFragment composeDialogFragment = ComposeDialogFragment.newInstance();
         composeDialogFragment.show(fm, "fragment_compose");
+    }
+
+    public void presentProfile(MenuItem menuItem) {
+
     }
 
     // ComposeDialogFragmentListener
