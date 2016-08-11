@@ -21,7 +21,7 @@
             android:value="1" />
 
         <activity
-            android:name="com.codepath.apps.tweettweet.LoginActivity"
+            android:name=".LoginActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme">
             <intent-filter>
@@ -40,7 +40,8 @@
                     android:scheme="oauth" />
             </intent-filter>
         </activity>
-        <activity android:name="com.codepath.apps.tweettweet.TimelineActivity"></activity>
+        <activity android:name=".TimelineActivity" />
+        <activity android:name=".ProfileActivity"></activity>
     </application>
 
 </manifest>

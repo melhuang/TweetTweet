@@ -1,5 +1,6 @@
 package com.codepath.apps.tweettweet;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -28,7 +29,7 @@ public class TimelineActivity extends AppCompatActivity implements ComposeDialog
         PagerSlidingTabStrip tabStrip = (PagerSlidingTabStrip) findViewById(R.id.tabs);
         tabStrip.setViewPager(viewPager);
     }
-    
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -43,7 +44,10 @@ public class TimelineActivity extends AppCompatActivity implements ComposeDialog
     }
 
     public void presentProfile(MenuItem menuItem) {
-
+        Intent i = new Intent(this, ProfileActivity.class);
+        Bundle b = new Bundle();
+        b.putString("screen_name", "meowlissa10");
+        startActivity(i);
     }
 
     // ComposeDialogFragmentListener
