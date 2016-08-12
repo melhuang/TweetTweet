@@ -23,7 +23,7 @@ import java.util.List;
 public class TweetsListFragment extends Fragment {
 
     private TweetsAdapter aTweets;
-    private ArrayList<Tweet> tweets;
+    protected ArrayList<Tweet> tweets;
     private RecyclerView rvTweets;
 
     @Override
@@ -38,11 +38,15 @@ public class TweetsListFragment extends Fragment {
         rvTweets.addOnScrollListener(new EndlessRecyclerViewScrollListener(linearLayoutManager) {
             @Override
             public void onLoadMore(int page, int totalItemsCount) {
-//                populateTimeline();
+                populateTimeline();
             }
         });
 
         return v;
+    }
+
+    public void populateTimeline() {
+        // subclasses override
     }
 
     @Override

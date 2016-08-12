@@ -28,9 +28,10 @@ public class HomeTimelineFragment extends TweetsListFragment {
         populateTimeline();
     }
 
-    private void populateTimeline() {
-        long fetchMoreStart = -1;
-//        long fetchMoreStart = tweets.size() > 0 ? tweets.get(tweets.size() - 1).getUid() : -1;
+    @Override
+    public void populateTimeline() {
+//        long fetchMoreStart = -1;
+        long fetchMoreStart = tweets.size() > 0 ? tweets.get(tweets.size() - 1).getUid() : -1;
         client.getHomeTimeline(new JsonHttpResponseHandler() {
             // on success
 

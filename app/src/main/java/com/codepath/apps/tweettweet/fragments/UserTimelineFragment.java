@@ -28,10 +28,10 @@ public class UserTimelineFragment extends TweetsListFragment {
         populateTimeline();
     }
 
-    private void populateTimeline() {
+    @Override
+    public void populateTimeline() {
         String screenName = getArguments().getString("screen_name");
-        long fetchMoreStart = -1;
-//        long fetchMoreStart = tweets.size() > 0 ? tweets.get(tweets.size() - 1).getUid() : -1;
+        long fetchMoreStart = tweets.size() > 0 ? tweets.get(tweets.size() - 1).getUid() : -1;
         client.getUserTimeline(new JsonHttpResponseHandler() {
             // on success
 

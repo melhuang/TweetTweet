@@ -55,6 +55,5 @@ public class ProfileActivity extends AppCompatActivity {
 
         Picasso.with(this).load(user.getProfileImageUrl()).into(ivProfileImage);
 
-
     }
 }
