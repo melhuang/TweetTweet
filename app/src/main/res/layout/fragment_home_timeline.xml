@@ -10,4 +10,15 @@
         android:layout_height="match_parent"
         android:id="@+id/rvTweets" />
 
+    <android.support.design.widget.FloatingActionButton
+        android:src="@drawable/ic_mode_edit_white_24dp"
+        android:id="@+id/fabCompose"
+        app:fabSize="normal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_anchor="@id/rvTweets"
+        app:layout_anchorGravity="bottom|right|end"
+        android:layout_margin="16dp"
+        app:layout_behavior="com.codepath.apps.tweettweet.ScrollAwareFABBehavior" />
+
 </android.support.design.widget.CoordinatorLayout>

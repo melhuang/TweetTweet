@@ -22,9 +22,9 @@ import java.util.List;
  */
 public class TweetsListFragment extends Fragment {
 
-    private TweetsAdapter aTweets;
+    protected TweetsAdapter aTweets;
     protected ArrayList<Tweet> tweets;
-    private RecyclerView rvTweets;
+    protected RecyclerView rvTweets;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

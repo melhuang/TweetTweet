@@ -56,7 +56,7 @@ public class ComposeDialogFragment extends DialogFragment {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ComposeDialogFragmentListener listener = (ComposeDialogFragmentListener) getActivity();
+                ComposeDialogFragmentListener listener = (ComposeDialogFragmentListener) getTargetFragment();
                 String body = mEditText.getText().toString();
                 listener.onSaveTweet(body);
                 dismiss();

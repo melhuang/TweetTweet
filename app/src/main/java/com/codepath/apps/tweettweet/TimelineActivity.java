@@ -10,13 +10,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.astuetz.PagerSlidingTabStrip;
 import com.codepath.apps.tweettweet.fragments.HomeTimelineFragment;
 import com.codepath.apps.tweettweet.fragments.MentionsTimelineFragment;
 
-public class TimelineActivity extends AppCompatActivity implements ComposeDialogFragment.ComposeDialogFragmentListener {
+public class TimelineActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,37 +36,10 @@ public class TimelineActivity extends AppCompatActivity implements ComposeDialog
         return super.onCreateOptionsMenu(menu);
     }
 
-    public void presentCompose(View v) {
-        FragmentManager fm = getSupportFragmentManager();
-        ComposeDialogFragment composeDialogFragment = ComposeDialogFragment.newInstance();
-        composeDialogFragment.show(fm, "fragment_compose");
-    }
-
     public void presentProfile(MenuItem menuItem) {
         Intent i = new Intent(this, ProfileActivity.class);
-        Bundle b = new Bundle();
-        b.putString("screen_name", "meowlissa10");
+        i.putExtra("screen_name", "meowlissa10");
         startActivity(i);
-    }
-
-    // ComposeDialogFragmentListener
-    @Override
-    public void onSaveTweet(String body) {
-//        client.composeTweet(new JsonHttpResponseHandler() {
-//            @Override
-//            public void onSuccess(int statusCode, Header[] headers, JSONObject json) {
-//                // fetch most recent tweets
-//                Tweet newTweet = Tweet.fromJSON(json);
-//                tweets.add(0, newTweet);
-//                aTweets.notifyItemInserted(0);
-//            }
-//
-//            // on failure
-//            @Override
-//            public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
-//                Log.d("DEBUG", errorResponse.toString());
-//            }
-//        }, body);
     }
 
     // configure fragments in view pager
